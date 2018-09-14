@@ -1,4 +1,7 @@
 /venv_1/*
+__pycache__/
 /__pycache__/*
 /app/__pycache__/*
+app/__pycache__/
 /.idea/*
+app.db
