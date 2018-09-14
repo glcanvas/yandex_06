@@ -1,2 +1,3 @@
 /venv_1/*
 /__pycache__/*
+/app/__pycache__/*
