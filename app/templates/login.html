@@ -27,7 +27,7 @@
             </form>
         {% endblock %}
     {% else %}
-        <p> you are logged as {{ current_user.name }}</p>
+        <p> you are logged as {{ user }}</p>
         <form action="{{ url_for('logout') }}" method="post">
             <button type="submit">logout</button>
         </form>

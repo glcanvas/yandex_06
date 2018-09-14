@@ -1,13 +1,15 @@
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 import os
 
-base_dir = os.path.abspath(os.path.dirname(__file__))
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+base_db = os.path.join(base_dir, 'app.db')
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db?check_same_thread=False'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}?check_same_thread=False'.format(base_db)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 

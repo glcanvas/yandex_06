@@ -25,7 +25,12 @@ class LoginView(View):
 
     def dispatch_request(self):
         if current_user.is_authenticated:
-            return render_template('login.html')
+            try:
+                user = db.session.query(models.User).filter_by(id=current_user.username).first().username
+            except Exception:
+                logout_user()
+                return redirect(url_for('login'))
+            return render_template('login.html', user=user)
         else:
             register_form = Register()
             login_form = Login()
@@ -93,6 +98,10 @@ class HistoryView(View):
     def dispatch_request(self):
         if not current_user.is_authenticated:
             return redirect(url_for('login'))
-        numbers = db.session.query(models.User).filter_by(id=current_user.username).first().numbers
-        numbers = list(map(lambda x:x.number, numbers))
+        try:
+            numbers = db.session.query(models.User).filter_by(id=current_user.username).first().numbers
+        except Exception:
+            logout_user()
+            return redirect(url_for('login'))
+        numbers = list(map(lambda x: x.number, numbers))
         return render_template('history.html', numbers=numbers)
