@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% if current_user.is_anonymous %}
+        <p>don't have account ? <br> register here! </p>
+        {% block registration %}
+            <form action="{{ url_for('new') }}" method="post">
+                {% with %}
+                    {% set error, form = register_errors, login_form %}
+                    {% include "fields.html" %}
+                {% endwith %}
+                <button type="submit">register</button>
+            </form>
+        {% endblock %}
+        <br>
+        <p> have account ? <br> login now ! </p>
+        <br>
+
+        {% block login %}
+            <form action="{{ url_for('comein') }}" method="post">
+                {% with %}
+                    {% set form=login_form %}
+                    {% set error=login_errors %}
+                    {% include "fields.html" %}
+                {% endwith %}
+                <button type="submit">login</button>
+            </form>
+        {% endblock %}
+    {% else %}
+        <p> you are logged as {{ current_user.name }}</p>
+        <form action="{{ url_for('logout') }}" method="post">
+            <button type="submit">logout</button>
+        </form>
+    {% endif %}
+{% endblock %}

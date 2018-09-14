@@ -1,0 +1,7 @@
+{% for field in form %}
+    {{ field }}
+{% endfor %}
+
+{% for er in error.username %}
+    <p style="color:red">{{ er }}</p>
+{% endfor %}
